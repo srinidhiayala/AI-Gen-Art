@@ -1,9 +1,41 @@
-#hello_div{
-    padding-top:  10px;
-    padding-bottom:  10px;
-    color: blue;
+#title {
+    text-align: center;
+    font-size: 40px; 
+    margin-top: 100px;
 }
 
-#welcome-banner {
-    text-align: center; 
+#tag-line{
+    text-align: center;
+    margin-top: 100px;
+}
+
+body {
+    background-color: #e0dede; 
+  }
+  
+#training-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    font-size: 1.5rem;
+}
+
+#about-button{
+    position: absolute;
+    top: 75%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 1.5rem;  
+}
+
+#beginQuiz-button{
+    position: absolute;
+    top: 75%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 1.5rem;  
 }
