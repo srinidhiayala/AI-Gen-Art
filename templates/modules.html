@@ -1,20 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{ module.title }}</h1>
-<img src="{{ module.example1_pic }}" alt="" style="width: 300px;">
-<p>{{ module.example1_description }}</p>
+<h1>Module {{ module.id }}: {{ module.title }}</h1>
 
-<img src="{{ module.example2_pic }}" alt="" style="width: 300px;">
-<p>{{ module.example2_description }}</p>
+{% if module.example1_pic %}
+  <img src="{{ module.example1_pic }}" alt="" style="width: 300px;">
+{% endif %}
 
+{% if module.example1_link %}
+  <p>Example 1: <a href="{{ module.example1_link }}" target="_blank">{{ module.example1_description }}</a></p>
+{% else %}
+  <p>Example 1: {{ module.example1_description }}</p>
+{% endif %}
+
+{% if module.example2_pic %}
+  <img src="{{ module.example2_pic }}" alt="" style="width: 300px;">
+{% endif %}
+
+{% if module.example2_link %}
+  <p>Example 2: <a href="{{ module.example2_link }}" target="_blank">{{ module.example2_description }}</a></p>
+{% else %}
+  <p>Example 2: {{ module.example2_description }}</p>
+{% endif %}
+
+<p><strong>What to look for:</strong></p>
 <ul>
   {% for tip in module.what_to_look_for %}
     <li>{{ tip }}</li>
   {% endfor %}
 </ul>
 
-<button>Back</button>
+<button id="back-button" data-back-id="{{ module.go_back }}">Back</button>
+<button id="next-button" data-next-id="{{ module.next }}">Next</button>
 
-<button>Next</button>
-
+<script src="{{ url_for('static', filename='routing.js') }}"></script>
 {% endblock %}
