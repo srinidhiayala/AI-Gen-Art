@@ -39,3 +39,9 @@ body {
     padding: 10px 20px;
     font-size: 1.5rem;  
 }
+
+.navbar a {
+    font-size: 1.25rem;
+    margin-right: 50px;
+  }
+  

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{ module.title }}</h1>
+<img src="{{ module.example1_pic }}" alt="" style="width: 300px;">
+<p>{{ module.example1_description }}</p>
+
+<img src="{{ module.example2_pic }}" alt="" style="width: 300px;">
+<p>{{ module.example2_description }}</p>
+
+<ul>
+  {% for tip in module.what_to_look_for %}
+    <li>{{ tip }}</li>
+  {% endfor %}
+</ul>
+
+<button>Back</button>
+
+<button>Next</button>
+
+{% endblock %}
