@@ -1,29 +1,52 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<!-- Progress Indicator in Top-Right -->
+<!-- Progress Indicator -->
 <div style="position: absolute; top: 20px; right: 30px; font-weight: bold; font-size: 1.1rem; background: #f0f0f0; padding: 6px 12px; border-radius: 6px;">
   {{ step }} / 7
 </div>
 
-<h2 class="text-center mt-4">Question {{ step }}: Please choose the real image.</h2>
+<h2 class="text-center mt-4">
+  {% if step in [6, 7] %}
+    Question {{ step }}: Is this image real?
+  {% else %}
+    Question {{ step }}: Please choose the real image.
+  {% endif %}
+</h2>
 
 <form method="POST" id="quiz-form">
   <div class="d-flex justify-content-around mt-5">
-    <label id="label-image1"
-           class="image-choice"
-           style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-      <input type="radio" name="answer" value="image1" required style="display: none;">
-      Image 1 placeholder
-    </label>
+    {% if step in [6, 7] %}
+      <img src="https://via.placeholder.com/300"
+           alt="Single image for step {{ step }}"
+           style="border: 2px solid #444; width: 50%; height: 300px; object-fit: cover;">
+    {% else %}
+      <label id="label-image1"
+             class="image-choice"
+             style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+        <input type="radio" name="answer" value="image1" required style="display: none;">
+        Image 1 placeholder
+      </label>
 
-    <label id="label-image2"
-           class="image-choice"
-           style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-      <input type="radio" name="answer" value="image2" required style="display: none;">
-      Image 2 placeholder
-    </label>
+      <label id="label-image2"
+             class="image-choice"
+             style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+        <input type="radio" name="answer" value="image2" required style="display: none;">
+        Image 2 placeholder
+      </label>
+    {% endif %}
   </div>
+
+  {% if step in [6, 7] %}
+    <div class="text-center mt-4">
+      <label class="mr-3">
+        <input type="radio" name="answer" value="yes" required> Yes
+      </label>
+      <label>
+        <input type="radio" name="answer" value="no" required> No
+      </label>
+    </div>
+  {% endif %}
 
   <div class="d-flex justify-content-between mt-4">
     {% if step > 1 %}
@@ -31,14 +54,15 @@
     {% else %}
       <span></span>
     {% endif %}
-  
+
     {% if step < 7 %}
       <button type="submit" class="btn btn-primary">Next</button>
+    {% elif step == 7 %}
+      <button type="submit" class="btn btn-success">Submit</button>
     {% endif %}
-  </div>  
+  </div>
 </form>
 
-<!-- Score Display on Step 7 -->
 {% if step == 7 and score is not none %}
   <div class="text-center mt-5">
     <h3>Quiz Complete!</h3>
@@ -54,13 +78,15 @@
       3: "image2",
       4: "image1",
       5: "image2",
-      6: "image1",
-      7: "image2"
+      6: "no",
+      7: "no"
     };
 
     function clearBorders() {
-      document.getElementById("label-image1").classList.remove("correct", "incorrect");
-      document.getElementById("label-image2").classList.remove("correct", "incorrect");
+      const label1 = document.getElementById("label-image1");
+      const label2 = document.getElementById("label-image2");
+      if (label1) label1.classList.remove("correct", "incorrect");
+      if (label2) label2.classList.remove("correct", "incorrect");
     }
 
     document.querySelectorAll('input[name="answer"]').forEach(input => {
@@ -71,19 +97,14 @@
 
         clearBorders();
 
-        if (selected === correct) {
-          document.getElementById("label-" + selected).classList.add("correct");
-        } else {
-          document.getElementById("label-" + selected).classList.add("incorrect");
-          document.getElementById("label-" + correct).classList.add("correct");
-        }
+        const selectedLabel = document.getElementById("label-" + selected);
+        const correctLabel = document.getElementById("label-" + correct);
+
+        if (selectedLabel) selectedLabel.classList.add(selected === correct ? "correct" : "incorrect");
+        if (correctLabel && selected !== correct) correctLabel.classList.add("correct");
       });
     });
   });
 </script>
 
 {% endblock %}
-
-
-
-

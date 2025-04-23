@@ -106,20 +106,34 @@ def big_quiz(step):
     if step < 1 or step > 7:
         return redirect(url_for('big_quiz', step=1))
 
+    score = None
+
     if request.method == 'POST':
         answer = request.form.get('answer')
         session[f'answer_{step}'] = answer
+
         if step < 7:
             return redirect(url_for('big_quiz', step=step + 1))
 
-    score = None
-    if step == 7:
+        elif step == 7:
+            # ✅ User just submitted the final answer
+            session['quiz_submitted'] = True
+
+            score = sum(
+                1 for s, correct in correct_answers.items()
+                if session.get(f'answer_{s}') == correct
+            )
+
+            return render_template('big_quiz.html', step=step, score=score)
+
+    # Only calculate score when quiz has been submitted
+    if step == 7 and session.get('quiz_submitted'):
         score = sum(
             1 for s, correct in correct_answers.items()
             if session.get(f'answer_{s}') == correct
         )
 
-    return render_template("big_quiz.html", step=step, score=score)
+    return render_template('big_quiz.html', step=step, score=score)
 
 # AJAX FUNCTIONS
 
