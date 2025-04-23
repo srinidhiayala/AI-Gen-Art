@@ -4,10 +4,13 @@ from flask import render_template
 from flask import Response, request, jsonify
 import logging
 
+from flask import Flask, render_template, request, redirect, url_for, session
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+app.secret_key = 'super-secret-key'  # Required for sessions
 
 modules_data = [
     {
@@ -68,6 +71,17 @@ modules_data = [
         "next": "q5"  
     }
 ]
+
+correct_answers = {
+    1: "image2",
+    2: "image1",
+    3: "image2",
+    4: "image1",
+    5: "image2",
+    6: "image1",
+    7: "image2"
+}
+
 # ROUTES
 
 @app.route('/')
@@ -87,10 +101,25 @@ def learning_modules(id):
 
     return render_template('modules.html', module=module)
 
-@app.route('/quiz/<int:id>', methods=['GET', 'POST'])
-def big_quiz(id):
-   return render_template('big_quiz.html')  
+@app.route('/big_quiz/<int:step>', methods=['GET', 'POST'])
+def big_quiz(step):
+    if step < 1 or step > 7:
+        return redirect(url_for('big_quiz', step=1))
 
+    if request.method == 'POST':
+        answer = request.form.get('answer')
+        session[f'answer_{step}'] = answer
+        if step < 7:
+            return redirect(url_for('big_quiz', step=step + 1))
+
+    score = None
+    if step == 7:
+        score = sum(
+            1 for s, correct in correct_answers.items()
+            if session.get(f'answer_{s}') == correct
+        )
+
+    return render_template("big_quiz.html", step=step, score=score)
 
 # AJAX FUNCTIONS
 

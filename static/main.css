@@ -45,3 +45,15 @@ body {
     margin-right: 50px;
   }
   
+.correct {
+  border: 4px solid green !important;
+}
+
+.incorrect {
+  border: 4px solid red !important;
+}
+
+.image-choice {
+  cursor: pointer;
+  transition: border 0.3s;
+}

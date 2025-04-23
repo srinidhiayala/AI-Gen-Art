@@ -8,8 +8,8 @@ $(document).ready(function () {
   });
 
   $('#beginQuiz-button').on('click', function () {
-    window.location.href = '/quiz/1';
-  });
+    window.location.href = '/big_quiz/1';  // updated route
+  });  
 
   $('#next-button').click(function () {
     const nextId = $(this).data('next-id');
