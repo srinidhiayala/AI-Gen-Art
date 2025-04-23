@@ -71,6 +71,48 @@ modules_data = [
         "next": "q5"  
     }
 ]
+quiz_data = {
+    "1": {
+        "image1": "https://example.com/quiz1_img1.jpg",
+        "image2": "https://example.com/quiz1_img2.jpg",
+        "correct_answer": "image2",
+        "tip": "Look closely at the lighting and reflections in both images. Pay special attention to eyes, glasses, and shiny surfaces.",
+        "go_back_module": 1,
+        "next_module": 2
+    },
+    "2": {
+        "image1": "https://example.com/quiz2_img1.jpg",
+        "image2": "https://example.com/quiz2_img2.jpg",
+        "correct_answer": "image1",
+        "tip": "Examine the text elements in both images. Look for inconsistent letter spacing, mixed character sets, or text that doesn't follow perspective correctly.",
+        "go_back_module": 2,
+        "next_module": 3
+    },
+    "3": {
+        "image1": "https://example.com/quiz3_img1.jpg",
+        "image2": "https://example.com/quiz3_img2.jpg",
+        "correct_answer": "image1",
+        "tip": "Focus on areas with similar lighting and check if the noise patterns are consistent. AI often creates unnaturally clean areas or inconsistent noise distribution.",
+        "go_back_module": 3,
+        "next_module": 4
+    },
+    "4": {
+        "image1": "https://example.com/quiz4_img1.jpg",
+        "image2": "https://example.com/quiz4_img2.jpg",
+        "correct_answer": "image2",
+        "tip": "Check if all objects follow the same perspective rules. Look for elements that appear at physically impossible angles or don't match the environment's vanishing points.",
+        "go_back_module": 4,
+        "next_module": 5
+    },
+    "5": {
+        "image1": "https://example.com/quiz5_img1.jpg",
+        "image2": "https://example.com/quiz5_img2.jpg",
+        "correct_answer": "image2",
+        "tip": "Watch for elements that flicker or change subtly between frames. Pay attention to physics in movement and how complex elements like hair or water flow.",
+        "go_back_module": 5,
+        "next_module": "big_quiz"
+    }
+}
 
 correct_answers = {
     1: "image2",
@@ -100,6 +142,22 @@ def learning_modules(id):
         abort(404)
 
     return render_template('modules.html', module=module)
+
+@app.route("/quiz/<quiz_id>", methods=["GET", "POST"])
+def quiz(quiz_id):
+    quiz = quiz_data[quiz_id]
+    user_answer = None
+    correct_answer = quiz["correct_answer"]
+
+    if request.method == "POST":
+        user_answer = request.form["answer"]
+    
+    return render_template(
+        "quiz.html",
+        quiz=quiz,
+        user_answer=user_answer,
+        correct_answer=correct_answer
+    )
 
 @app.route('/big_quiz/<int:step>', methods=['GET', 'POST'])
 def big_quiz(step):
