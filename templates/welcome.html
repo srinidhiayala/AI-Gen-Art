@@ -10,6 +10,8 @@
   <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>  
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto+Serif&display=swap" rel="stylesheet">
+
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
@@ -19,13 +21,23 @@
 
   </head>
   <body>
-<h4 id="title">SpotAI: Learn to Detect AI-Generated Images</h4>
-
-<h5 id="tag-line">Improve your digital literacy in the age of artificial intelligence media</h5>
-
-<button id="training-button">Start Training</button>
-<button id="about-button">About</button>
-<button id="beginQuiz-button">Begin Quiz</button>
+    <div class="top-section">
+      <h4 id="title" class="title-roboto strong">
+        <span class="spotai-big">SpotAI:</span> <br>
+        Learn to Detect AI-Generated Images
+      </h4>
+    
+      <div class="center-image">
+        <img src="static/pictures/mainPage.png" alt="robot-and-skull">
+      </div>
+    </div>
+    
+    <div class="button-container">
+    <button id="training-button">Start Training</button>
+    <button id="about-button">About</button>
+    <button id="beginQuiz-button">Begin Quiz</button>
+    </div>
+    
 <script src="static/routing.js"></script>
 
 

@@ -1,7 +1,7 @@
 #title {
     text-align: center;
     font-size: 40px; 
-    margin-top: 100px;
+    margin-top: 25px;
 }
 
 #tag-line{
@@ -10,34 +10,104 @@
 }
 
 body {
-    background-color: #e0dede; 
+    background-color: #e3e3de; 
   }
-  
-#training-button{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 15px 30px;
-    font-size: 1.5rem;
+
+.custom-navbar {
+   background-color: #a2708a !important; 
 }
+  
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand {
+  color: white !important; 
+}
+
+.small-roboto {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.title-roboto {
+  font-family: 'Roboto Serif', serif;
+}
+  
+.strong{
+  font-weight:bold;
+}
+
+.spotai-big {
+  font-size: 2em; 
+  font-family: 'Roboto Serif', serif;
+}
+
+.center-image {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0; 
+}
+
+.center-image img {
+  max-width: 100%; 
+  height: auto;
+}
+
+.top-section {
+  margin-top: 10px; 
+  text-align: center;
+}
+
+.center-image img {
+  width: 350px; 
+  height: auto; 
+  margin-top: 40px; 
+}
+
+
+#training-button {
+  display: block;
+  margin: 70px auto 0 auto; 
+  padding: 15px 70px;
+  font-size: 2.5rem;
+  background-color: #824670;
+  color: white;
+  border: none;
+  font-family: 'Roboto Condensed', sans-serif;
+  cursor: pointer;
+}
+
+#training-button:hover {
+  background-color: #824670; 
+}
+
 
 #about-button{
     position: absolute;
-    top: 75%;
-    left: 25%;
+    top: 83%;
+    left: 15%;
     transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 1.5rem;  
+    padding: 20px 40px;
+    font-size: 1.5rem; 
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #a2708a;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#about-button:hover {
+  background-color: rgba(130, 70, 112, 0.744); 
 }
 
 #beginQuiz-button{
     position: absolute;
-    top: 75%;
-    left: 75%;
+    top: 83%;
+    left: 85%;
     transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 1.5rem;  
+    padding: 20px 40px;
+    font-size: 1.5rem; 
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #a2708a;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .navbar a {

@@ -8,7 +8,7 @@ $(document).ready(function () {
   });
 
   $('#beginQuiz-button').on('click', function () {
-    window.location.href = '/big_quiz/1';  // updated route
+    window.location.href = '/big_quiz/1';
   });  
 
   $('#next-button').click(function () {
