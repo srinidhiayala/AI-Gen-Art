@@ -2,6 +2,8 @@
 {% block content %}
 <h1>Module {{ module.id }}: {{ module.title }}</h1>
 
+<h4>{{ module.id }} / 5 </h4>
+
 {% if module.example1_pic %}
   <img src="{{ module.example1_pic }}" alt="" style="width: 300px;">
 {% endif %}
@@ -33,4 +35,18 @@
 <button id="next-button" data-next-id="{{ module.next }}">Next</button>
 
 <script src="{{ url_for('static', filename='routing.js') }}"></script>
+
+<script>
+let startTime = Date.now();
+
+$(window).on('beforeunload', function () {
+    let endTime = Date.now();
+    let timeSpentSeconds = Math.floor((endTime - startTime) / 1000);
+
+    navigator.sendBeacon('/record_time', JSON.stringify({
+        module_id: "{{ module.id }}",
+        time_spent: timeSpentSeconds
+    }));
+});
+</script>
 {% endblock %}

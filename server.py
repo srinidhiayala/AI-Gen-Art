@@ -10,7 +10,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.secret_key = 'super-secret-key'  # Required for sessions
+app.secret_key = 'super-secret-key'
+
+# hosts meta data for learning modules --> printed in the flask terminal for every page after clicking "next"
+learning_metaData = []
 
 modules_data = [
     {
@@ -192,6 +195,26 @@ def big_quiz(step):
         )
 
     return render_template('big_quiz.html', step=step, score=score)
+
+
+@app.route('/record_time', methods=['POST'])
+def record_time():
+    global learning_metaData
+    if request.data:
+        import json
+        data = json.loads(request.data) 
+    else:
+        data = {}
+
+    module_id = data.get('module_id')
+    time_spent = data.get('time_spent')
+    
+    learning_metaData.append({"module_id":module_id, "seconds_spent":time_spent})
+    
+    logger.info(learning_metaData)
+
+    return jsonify({'status': 'success'})
+
 
 # AJAX FUNCTIONS
 
