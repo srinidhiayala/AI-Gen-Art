@@ -134,14 +134,14 @@ body {
 }
 
 .header-title{
-  font-size: 30px;
+  font-size: 35px;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 600;
 }
 
 .content-body, .content-body li, .content-body h5 {
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: lighter;
 }
 
@@ -150,14 +150,73 @@ body {
   top: 90%;
   left: 85%;
   transform: translate(-50%, -50%);
-  
   padding: 10px 20px; 
-  
   font-size: 1.5rem;  
-  
   font-family: 'Roboto Condensed', sans-serif;
   background-color: #824670;
   color: white;
   border: none;
   cursor: pointer;
+}
+
+.learning-title{
+  font-size: 35px;
+  font-family: 'Roboto Serif', serif;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.module-progress {
+  margin-left: auto;
+  font-weight: normal; 
+  font-family: 'Roboto Serif', serif;
+}
+
+.example-caption {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
+}
+
+.what-to-look-for{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#next-button{
+  position: absolute;
+  top: 95%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  padding: 5px 50px; 
+  font-size: 1.5rem;  
+  font-family: 'Roboto Condensed', sans-serif;
+  background-color: #824670;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#back-button{
+  position: absolute;
+  top: 95%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  padding: 5px 50px; 
+  font-size: 1.5rem;  
+  font-family: 'Roboto Condensed', sans-serif;
+  background-color: #a2708a;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.module-content {
+  margin-top: -20px;
 }

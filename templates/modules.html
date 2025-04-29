@@ -1,37 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Module {{ module.id }}: {{ module.title }}</h1>
-
-<h4>{{ module.id }} / 5 </h4>
+<div class="module-content">
+<div class="module-header">
+  <h1 class="learning-title">Module {{ module.id }}: {{ module.title }}</h1>
+  <h4 class="module-progress">{{ module.id }} / 5</h4>
+</div>
 
 {% if module.example1_pic %}
-  <img src="{{ module.example1_pic }}" alt="" style="width: 300px;">
+<img src="{{ url_for('static', filename=module.example1_pic|replace('static/', '') ) }}" alt="Example 1 picture" style="width: 175px;">
 {% endif %}
 
 {% if module.example1_link %}
-  <p>Example 1: <a href="{{ module.example1_link }}" target="_blank">{{ module.example1_description }}</a></p>
+  <p class="example-caption">Example 1: <a href="{{ module.example1_link }}" target="_blank">{{ module.example1_description }}</a></p>
 {% else %}
-  <p>Example 1: {{ module.example1_description }}</p>
+  <p class="example-caption">Example 1: {{ module.example1_description }}</p>
 {% endif %}
 
 {% if module.example2_pic %}
-  <img src="{{ module.example2_pic }}" alt="" style="width: 300px;">
+  <img src="{{ url_for('static', filename=module.example2_pic|replace('static/', '') ) }}" alt="Example 2 picture" style="width: 175px;">
 {% endif %}
 
 {% if module.example2_link %}
-  <p>Example 2: <a href="{{ module.example2_link }}" target="_blank">{{ module.example2_description }}</a></p>
+  <p class="example-caption">Example 2: <a href="{{ module.example2_link }}" target="_blank">{{ module.example2_description }}</a></p>
 {% else %}
-  <p>Example 2: {{ module.example2_description }}</p>
+  <p class="example-caption">Example 2: {{ module.example2_description }}</p>
 {% endif %}
 
-<p><strong>What to look for:</strong></p>
+<p class="what-to-look-for"><strong>What to look for:</strong></p>
 <ul>
   {% for tip in module.what_to_look_for %}
-    <li>{{ tip }}</li>
+    <li class="example-caption">{{ tip }}</li>
   {% endfor %}
 </ul>
 
-<button id="back-button" data-back-id="{{ module.go_back }}">Back</button>
+{% if module.id != "1" %}
+  <button id="back-button" data-back-id="{{ module.go_back }}">Back</button>
+{% endif %}
 <button id="next-button" data-next-id="{{ module.next }}">Next</button>
 
 <script src="{{ url_for('static', filename='routing.js') }}"></script>
@@ -49,4 +53,5 @@ $(window).on('beforeunload', function () {
     }));
 });
 </script>
+</div>
 {% endblock %}
