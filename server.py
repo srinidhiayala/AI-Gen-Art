@@ -207,7 +207,7 @@ def big_quiz(step):
     score = None
     quiz = big_quiz_data[step]  # Get the current question data
 
-    # Reset session when the user starts the quiz
+    # Reset session when the user starts the quiz (step 1)
     if step == 1 and request.method == 'GET':
         session.pop('quiz_submitted', None)  # Remove any session data for quiz submission
         for i in range(1, 8):
@@ -215,12 +215,14 @@ def big_quiz(step):
 
     # If the quiz has been submitted, calculate and show the score
     if session.get('quiz_submitted'):
+        # Calculate the score only after the quiz is completed (after step 7 submission)
         score = sum(
             1 for s, correct in correct_answers.items()
             if session.get(f'answer_{s}') == correct
         )
         return render_template('big_quiz.html', step=step, quiz=quiz, score=score, big_quiz_data=big_quiz_data)
 
+    # Process the answers when POST request is made (when the user selects an answer)
     if request.method == 'POST':
         answer = request.form.get('answer')
         session[f'answer_{step}'] = answer  # Store the user's answer temporarily
@@ -231,14 +233,21 @@ def big_quiz(step):
 
         # If it's the last question (step 7), calculate score and display the result
         elif step == 7:
-            session['quiz_submitted'] = True
+            session['quiz_submitted'] = True  # Mark the quiz as submitted
+
+            # Calculate the score after the last question (step 7)
             score = sum(
                 1 for s, correct in correct_answers.items()
                 if session.get(f'answer_{s}') == correct
             )
 
+            # Store the completion message and score message
+            session['quiz_complete_message'] = "Quiz Complete!"
+            session['quiz_score_message'] = f"You scored {score} out of 7."
+
             return render_template('big_quiz.html', step=step, quiz=quiz, score=score, big_quiz_data=big_quiz_data)
 
+    # If the quiz is still in progress (before submission), just render the current question
     return render_template('big_quiz.html', step=step, quiz=quiz, big_quiz_data=big_quiz_data)
 
 
