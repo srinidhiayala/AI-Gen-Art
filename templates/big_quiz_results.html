@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container text-center mt-5">
-    <h1 class="mb-4">Quiz Results</h1>
-    <p class="lead">You scored {{ score }} out of 7!</p>
+    <h1 class="mb-4 title-roboto">Quiz Results</h1>
+    <p class="lead small-roboto">You scored {{ score }} out of 7!</p>
 
     <div class="mt-4">
         <a href="{{ url_for('big_quiz', step=1) }}" class="btn btn-primary m-2">Retake Quiz</a>
@@ -12,6 +12,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 
 

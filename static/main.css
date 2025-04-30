@@ -220,3 +220,30 @@ body {
 .module-content {
   margin-top: -20px;
 }
+
+/* Specific font styles for quiz results and questions */
+#quiz-results-title, .module-header, .learning-title {
+    font-family: 'Roboto Serif', serif;
+    font-weight: 600;
+}
+
+.quiz-question label {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 20px;
+}
+
+.quiz-question input {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.quiz-question-title {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 24px; 
+  font-weight: 600; 
+}
+
+.quiz-progress {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 18px; 
+  font-weight: 600; 
+}

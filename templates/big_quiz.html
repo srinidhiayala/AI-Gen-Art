@@ -3,11 +3,11 @@
 {% block content %}
 
 <!-- Progress Indicator -->
-<div style="position: absolute; top: 20px; right: 30px; font-weight: bold; font-size: 1.1rem; background: #f0f0f0; padding: 6px 12px; border-radius: 6px;">
+<div class="quiz-progress" style="position: absolute; top: 20px; right: 30px; background:rgb(207, 186, 211); padding: 6px 12px; border-radius: 6px;">
   {{ step }} / 7
 </div>
 
-<h2 class="text-center mt-4">
+<h2 class="text-center mt-4 quiz-question-title">
   {% if step in [6, 7] %}
     Question {{ step }}: Is this picture AI generated?
   {% else %}
