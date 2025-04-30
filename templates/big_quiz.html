@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% block content %}
 
 <!-- Progress Indicator -->
@@ -8,36 +9,39 @@
 
 <h2 class="text-center mt-4">
   {% if step in [6, 7] %}
-    Question {{ step }}: Is this image real?
+    Question {{ step }}: Is this picture AI generated?
   {% else %}
-    Question {{ step }}: Please choose the real image.
+    Question {{ step }}: Please choose the AI image.
   {% endif %}
 </h2>
 
 <form method="POST" id="quiz-form">
   <div class="d-flex justify-content-around mt-5">
     {% if step in [6, 7] %}
-      <img src="https://via.placeholder.com/300"
-           alt="Single image for step {{ step }}"
+      <!-- For steps 6 and 7, only one image -->
+      <img src="{{ big_quiz_data[step]['image1'] }}"
+           alt="Question {{ step }} image"
            style="border: 2px solid #444; width: 50%; height: 300px; object-fit: cover;">
     {% else %}
+      <!-- For steps 1 to 5, show two images -->
       <label id="label-image1"
              class="image-choice"
              style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
         <input type="radio" name="answer" value="image1" required style="display: none;">
-        Image 1 placeholder
+        <img src="{{ big_quiz_data[step]['image1'] }}" alt="Image 1" style="width: 100%; height: 100%; object-fit: cover;">
       </label>
 
       <label id="label-image2"
              class="image-choice"
              style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
         <input type="radio" name="answer" value="image2" required style="display: none;">
-        Image 2 placeholder
+        <img src="{{ big_quiz_data[step]['image2'] }}" alt="Image 2" style="width: 100%; height: 100%; object-fit: cover;">
       </label>
     {% endif %}
   </div>
 
   {% if step in [6, 7] %}
+    <!-- Yes/No options for steps 6 and 7 -->
     <div class="text-center mt-4">
       <label class="mr-3">
         <input type="radio" name="answer" value="yes" required> Yes
@@ -63,23 +67,24 @@
   </div>
 </form>
 
-{% if step == 7 and score is not none %}
-  <div class="text-center mt-5">
-    <h3>Quiz Complete!</h3>
-    <p>You scored {{ score }} out of 7.</p>
-  </div>
+{% if session.get('quiz_submitted') %}
+    <div class="text-center mt-5">
+      <h3>{{ session['quiz_complete_message'] }}</h3>
+      <p>{{ session['quiz_score_message'] }}</p>
+      <a href="/" class="btn btn-primary">Go Home</a>
+    </div>
 {% endif %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const correctAnswers = {
-      1: "image2",
-      2: "image1",
-      3: "image2",
+    const correct_answers = {
+      1: "image1",
+      2: "image2",
+      3: "image1",
       4: "image1",
-      5: "image2",
-      6: "no",
-      7: "no"
+      5: "image1",
+      6: "yes",
+      7: "yes"
     };
 
     function clearBorders() {
@@ -93,7 +98,7 @@
       input.addEventListener('change', function () {
         const selected = this.value;
         const step = {{ step }};
-        const correct = correctAnswers[step];
+        const correct = correct_answers[step];
 
         clearBorders();
 
@@ -108,3 +113,9 @@
 </script>
 
 {% endblock %}
+
+
+
+
+
+

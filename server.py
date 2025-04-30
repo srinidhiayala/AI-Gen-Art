@@ -117,15 +117,51 @@ quiz_data = {
     }
 }
 
-correct_answers = {
-    1: "image2",
-    2: "image1",
-    3: "image2",
-    4: "image1",
-    5: "image2",
-    6: "image1",
-    7: "image2"
+big_quiz_data = {
+    1: {
+        "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Frog.jpg",
+        "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Blue-frog.jpg",
+        "correct_answer": "image2",
+    },
+    2: {
+        "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Students-Activity.jpg",
+        "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Kids-doing-art.jpg",
+        "correct_answer": "image1",
+    },
+    3: {
+        "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Mt-Fuji.jpg",
+        "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Mount-Fuji.jpg",
+        "correct_answer": "image2",
+    },
+    4: {
+        "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/HK.jpg",
+        "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Hong-Kong.jpg",
+        "correct_answer": "image1",
+    },
+    5: {
+        "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Northern-Lights.jpg",
+        "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Aurora.jpg",
+        "correct_answer": "image2",
+    },
+    6: {
+        "image1": "https://example.com/quiz6_img1.jpg",
+        "correct_answer": "yes",
+    },
+    7: {
+        "image1": "https://example.com/quiz7_img1.jpg",
+        "correct_answer": "yes",
+    }
 }
+
+correct_answers = {
+      1: "image1",
+      2: "image2",
+      3: "image1",
+      4: "image1",
+      5: "image1",
+      6: "yes",
+      7: "yes"
+    };
 
 # ROUTES
 
@@ -164,37 +200,46 @@ def quiz(quiz_id):
 
 @app.route('/big_quiz/<int:step>', methods=['GET', 'POST'])
 def big_quiz(step):
+    # If the step is not between 1 and 7, redirect to the first question
     if step < 1 or step > 7:
         return redirect(url_for('big_quiz', step=1))
 
     score = None
+    quiz = big_quiz_data[step]  # Get the current question data
+
+    # Reset session when the user starts the quiz
+    if step == 1 and request.method == 'GET':
+        session.pop('quiz_submitted', None)  # Remove any session data for quiz submission
+        for i in range(1, 8):
+            session.pop(f'answer_{i}', None)  # Clear all answers
+
+    # If the quiz has been submitted, calculate and show the score
+    if session.get('quiz_submitted'):
+        score = sum(
+            1 for s, correct in correct_answers.items()
+            if session.get(f'answer_{s}') == correct
+        )
+        return render_template('big_quiz.html', step=step, quiz=quiz, score=score, big_quiz_data=big_quiz_data)
 
     if request.method == 'POST':
         answer = request.form.get('answer')
-        session[f'answer_{step}'] = answer
+        session[f'answer_{step}'] = answer  # Store the user's answer temporarily
 
+        # If not the last question, move to the next step
         if step < 7:
             return redirect(url_for('big_quiz', step=step + 1))
 
+        # If it's the last question (step 7), calculate score and display the result
         elif step == 7:
-            # ✅ User just submitted the final answer
             session['quiz_submitted'] = True
-
             score = sum(
                 1 for s, correct in correct_answers.items()
                 if session.get(f'answer_{s}') == correct
             )
 
-            return render_template('big_quiz.html', step=step, score=score)
+            return render_template('big_quiz.html', step=step, quiz=quiz, score=score, big_quiz_data=big_quiz_data)
 
-    # Only calculate score when quiz has been submitted
-    if step == 7 and session.get('quiz_submitted'):
-        score = sum(
-            1 for s, correct in correct_answers.items()
-            if session.get(f'answer_{s}') == correct
-        )
-
-    return render_template('big_quiz.html', step=step, score=score)
+    return render_template('big_quiz.html', step=step, quiz=quiz, big_quiz_data=big_quiz_data)
 
 
 @app.route('/record_time', methods=['POST'])
