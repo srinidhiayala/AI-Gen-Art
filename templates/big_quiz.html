@@ -16,7 +16,7 @@
 </h2>
 
 <form method="POST" id="quiz-form">
-  <div class="d-flex justify-content-around mt-5">
+  <div class="d-flex justify-content-center mt-5">
     {% if step in [6, 7] %}
       <!-- For steps 6 and 7, only one image -->
       <img src="{{ big_quiz_data[step]['image1'] }}"
@@ -24,19 +24,29 @@
            style="border: 2px solid #444; width: 50%; height: 300px; object-fit: cover;">
     {% else %}
       <!-- For steps 1 to 5, show two images -->
-      <label id="label-image1"
-             class="image-choice"
-             style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-        <input type="radio" name="answer" value="image1" required style="display: none;">
-        <img src="{{ big_quiz_data[step]['image1'] }}" alt="Image 1" style="width: 100%; height: 100%; object-fit: cover;">
-      </label>
+      <div class="d-flex justify-content-center">
+        <label id="label-image1"
+               class="image-choice"
+               style="border: 2px solid #444; width: 45%; height: 300px; display: inline-block; cursor: pointer; text-align: center;">
+          <input type="radio" name="answer" value="image1" required style="display: none;">
+          <img src="{{ big_quiz_data[step]['image1'] }}" alt="Image 1" style="width: 100%; height: 100%; object-fit: cover;">
+        </label>
 
-      <label id="label-image2"
-             class="image-choice"
-             style="border: 2px solid #444; width: 45%; height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-        <input type="radio" name="answer" value="image2" required style="display: none;">
-        <img src="{{ big_quiz_data[step]['image2'] }}" alt="Image 2" style="width: 100%; height: 100%; object-fit: cover;">
-      </label>
+        <label id="label-image2"
+               class="image-choice"
+               style="border: 2px solid #444; width: 45%; height: 300px; display: inline-block; cursor: pointer; text-align: center;">
+          <input type="radio" name="answer" value="image2" required style="display: none;">
+          <img src="{{ big_quiz_data[step]['image2'] }}" alt="Image 2" style="width: 100%; height: 100%; object-fit: cover;">
+        </label>
+      </div>
+
+     <!-- Third Image below the two images (vertically stacked) -->
+      <div id="third-image" class="text-center mt-4" style="display: none;">
+      <img src="{{ big_quiz_data[step]['image3'] }}"
+       alt="Third image for step {{ step }}"
+       style="width: 100%; height: auto; object-fit: contain;">
+      </div>
+
     {% endif %}
   </div>
 
@@ -107,15 +117,17 @@
 
         if (selectedLabel) selectedLabel.classList.add(selected === correct ? "correct" : "incorrect");
         if (correctLabel && selected !== correct) correctLabel.classList.add("correct");
+
+        // Show the third image after selecting one of the first two images
+        if (step < 6) {
+          document.getElementById("third-image").style.display = "block";
+        }
       });
     });
   });
 </script>
 
 {% endblock %}
-
-
-
 
 
 

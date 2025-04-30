@@ -121,26 +121,31 @@ big_quiz_data = {
     1: {
         "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Frog.jpg",
         "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Blue-frog.jpg",
+        "image3": "https://britannicaeducation.com/wp-content/uploads/2024/02/3.png",
         "correct_answer": "image2",
     },
     2: {
         "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Students-Activity.jpg",
         "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Kids-doing-art.jpg",
+        "image3": "https://britannicaeducation.com/wp-content/uploads/2024/02/5.png",
         "correct_answer": "image1",
     },
     3: {
         "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Mt-Fuji.jpg",
         "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Mount-Fuji.jpg",
+        "image3": "https://britannicaeducation.com/wp-content/uploads/2024/02/6.png",
         "correct_answer": "image2",
     },
     4: {
         "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/HK.jpg",
         "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Hong-Kong.jpg",
+        "image3": "https://britannicaeducation.com/wp-content/uploads/2024/02/8.png",
         "correct_answer": "image1",
     },
     5: {
         "image1": "https://britannicaeducation.com/wp-content/uploads/2024/02/Northern-Lights.jpg",
         "image2": "https://britannicaeducation.com/wp-content/uploads/2024/02/Aurora.jpg",
+        "image3": "https://britannicaeducation.com/wp-content/uploads/2024/02/9.png",
         "correct_answer": "image2",
     },
     6: {
