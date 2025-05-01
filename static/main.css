@@ -228,7 +228,7 @@ body {
 }
 
 .quiz-question label {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto Serif', serif;
     font-size: 20px;
 }
 
@@ -237,7 +237,7 @@ body {
 }
 
 .quiz-question-title {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Roboto Serif', serif;
   font-size: 24px; 
   font-weight: 600; 
 }
