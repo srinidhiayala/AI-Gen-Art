@@ -1,57 +1,80 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="module-content">
-<div class="module-header">
-  <h1 class="learning-title">Module {{ module.id }}: {{ module.title }}</h1>
-  <h4 class="module-progress">{{ module.id }} / 5</h4>
+  <div class="module-header">
+    <h1 class="learning-title">Module {{ module.id }}: {{ module.title }}</h1>
+    <h4 class="module-progress">{{ module.id }} / 5</h4>
+  </div>
+
+  {% if module.example1_pic or module.example2_pic %}
+  <div style="display: flex; justify-content: center; gap: 200px; margin-top: 40px;">
+    <div style="text-align: center;">
+      <h4 class="example">Example 1</h4>
+      {% if module.example1_pic %}
+        <img src="{{ url_for('static', filename=module.example1_pic|replace('static/', '') ) }}" alt="Example 1 picture"">
+      {% endif %}
+      {% if module.example1_link %}
+        <p class="example-caption"><a href="{{ module.example1_link }}" target="_blank">{{ module.example1_description }}</a></p>
+      {% else %}
+        <p class="example-caption">{{ module.example1_description }}</p>
+      {% endif %}
+    </div>
+
+    <div style="text-align: center;">
+      <h4 class="example">Example 2</h4>
+      {% if module.example2_pic %}
+        <img src="{{ url_for('static', filename=module.example2_pic|replace('static/', '') ) }}" alt="Example 2 picture"">
+      {% endif %}
+      {% if module.example2_link %}
+        <p class="example-caption"><a href="{{ module.example2_link }}" target="_blank">{{ module.example2_description }}</a></p>
+      {% else %}
+        <p class="example-caption">{{ module.example2_description }}</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+  <br>
+
+  <p class="what-to-look-for"><strong>What to look for:</strong></p>
+<div class="cards-container">
+  {% for tip in module.what_to_look_for %}
+    <div class="card">
+      <p class="card-content">{{ tip }}</p>
+    </div>
+  {% endfor %}
 </div>
 
-{% if module.example1_pic %}
-<img src="{{ url_for('static', filename=module.example1_pic|replace('static/', '') ) }}" alt="Example 1 picture" style="width: 175px;">
-{% endif %}
+  {% if module.id != "1" %}
+    <button id="back-button" data-back-id="{{ module.go_back }}">Back</button>
+  {% endif %}
+  <button id="next-button" data-next-id="{{ module.next }}">Next</button>
 
-{% if module.example1_link %}
-  <p class="example-caption">Example 1: <a href="{{ module.example1_link }}" target="_blank">{{ module.example1_description }}</a></p>
-{% else %}
-  <p class="example-caption">Example 1: {{ module.example1_description }}</p>
-{% endif %}
+  <script src="{{ url_for('static', filename='routing.js') }}"></script>
 
-{% if module.example2_pic %}
-  <img src="{{ url_for('static', filename=module.example2_pic|replace('static/', '') ) }}" alt="Example 2 picture" style="width: 175px;">
-{% endif %}
+  <script>
+    let startTime = Date.now();
 
-{% if module.example2_link %}
-  <p class="example-caption">Example 2: <a href="{{ module.example2_link }}" target="_blank">{{ module.example2_description }}</a></p>
-{% else %}
-  <p class="example-caption">Example 2: {{ module.example2_description }}</p>
-{% endif %}
+    $(window).on('beforeunload', function () {
+        let endTime = Date.now();
+        let timeSpentSeconds = Math.floor((endTime - startTime) / 1000);
 
-<p class="what-to-look-for"><strong>What to look for:</strong></p>
-<ul>
-  {% for tip in module.what_to_look_for %}
-    <li class="example-caption">{{ tip }}</li>
-  {% endfor %}
-</ul>
-
-{% if module.id != "1" %}
-  <button id="back-button" data-back-id="{{ module.go_back }}">Back</button>
-{% endif %}
-<button id="next-button" data-next-id="{{ module.next }}">Next</button>
-
-<script src="{{ url_for('static', filename='routing.js') }}"></script>
+        navigator.sendBeacon('/record_time', JSON.stringify({
+            module_id: "{{ module.id }}",
+            time_spent: timeSpentSeconds
+        }));
+    });
+  </script>
 
 <script>
-let startTime = Date.now();
+  $(window).on('load', function() {
+    $('img').each(function() {
+      const img = this;
+      const isHorizontal = img.naturalWidth > img.naturalHeight;
+      $(img).addClass(isHorizontal ? 'img-horizontal' : 'img-vertical');
+    });
+  });
+  </script>
+  
 
-$(window).on('beforeunload', function () {
-    let endTime = Date.now();
-    let timeSpentSeconds = Math.floor((endTime - startTime) / 1000);
-
-    navigator.sendBeacon('/record_time', JSON.stringify({
-        module_id: "{{ module.id }}",
-        time_spent: timeSpentSeconds
-    }));
-});
-</script>
 </div>
 {% endblock %}
