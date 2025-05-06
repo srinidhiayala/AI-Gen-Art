@@ -228,8 +228,13 @@ body {
 }
 
 #quiz-results-title, .module-header, .learning-title {
-    font-family: 'Roboto Serif', serif;
-    font-weight: 600;
+  font-family: 'Roboto Serif', serif;
+  font-weight: bold; 
+}
+
+.small {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
 }
 
 .quiz-question label {
