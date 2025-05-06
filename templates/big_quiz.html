@@ -25,26 +25,32 @@
     {% else %}
       <!-- For steps 1 to 5, show two images -->
       <div class="d-flex justify-content-center">
-        <label id="label-image1"
-               class="image-choice"
-               style="border: 2px solid #444; width: 45%; height: 300px; display: inline-block; cursor: pointer; text-align: center;">
-          <input type="radio" name="answer" value="image1" required style="display: none;">
-          <img src="{{ big_quiz_data[step]['image1'] }}" alt="Image 1" style="width: 100%; height: 100%; object-fit: cover;">
-        </label>
+        {% if big_quiz_data[step]['image1'] %}
+          <label id="label-image1"
+                 class="image-choice"
+                 style="border: 2px solid #444; width: 45%; height: 300px; display: inline-block; cursor: pointer; text-align: center;">
+            <input type="radio" name="answer" value="image1" required style="display: none;">
+            <img src="{{ big_quiz_data[step]['image1'] }}" alt="Image 1" style="width: 100%; height: 100%; object-fit: cover;">
+          </label>
+        {% endif %}
 
-        <label id="label-image2"
-               class="image-choice"
-               style="border: 2px solid #444; width: 45%; height: 300px; display: inline-block; cursor: pointer; text-align: center;">
-          <input type="radio" name="answer" value="image2" required style="display: none;">
-          <img src="{{ big_quiz_data[step]['image2'] }}" alt="Image 2" style="width: 100%; height: 100%; object-fit: cover;">
-        </label>
+        {% if big_quiz_data[step]['image2'] %}
+          <label id="label-image2"
+                 class="image-choice"
+                 style="border: 2px solid #444; width: 45%; height: 300px; display: inline-block; cursor: pointer; text-align: center;">
+            <input type="radio" name="answer" value="image2" required style="display: none;">
+            <img src="{{ big_quiz_data[step]['image2'] }}" alt="Image 2" style="width: 100%; height: 100%; object-fit: cover;">
+          </label>
+        {% endif %}
       </div>
 
      <!-- Third Image below the two images (vertically stacked) -->
       <div id="third-image" class="text-center mt-4" style="display: none;">
-      <img src="{{ big_quiz_data[step]['image3'] }}"
-       alt="Third image for step {{ step }}"
-       style="width: 100%; height: auto; object-fit: contain;">
+        {% if big_quiz_data[step]['image3'] %}
+          <img src="{{ big_quiz_data[step]['image3'] }}"
+               alt="Third image for step {{ step }}"
+               style="width: 100%; height: auto; object-fit: contain;">
+        {% endif %}
       </div>
 
     {% endif %}
@@ -97,6 +103,7 @@
       7: "yes"
     };
 
+    // Clear borders before applying new ones
     function clearBorders() {
       const label1 = document.getElementById("label-image1");
       const label2 = document.getElementById("label-image2");
@@ -104,21 +111,29 @@
       if (label2) label2.classList.remove("correct", "incorrect");
     }
 
+    // Get the step and correct answer dynamically
+    const step = {{ step }};
+    const correct = correct_answers[step];
+
     document.querySelectorAll('input[name="answer"]').forEach(input => {
       input.addEventListener('change', function () {
         const selected = this.value;
-        const step = {{ step }};
-        const correct = correct_answers[step];
 
+        // Clear previous borders
         clearBorders();
 
+        // Get selected label element
         const selectedLabel = document.getElementById("label-" + selected);
-        const correctLabel = document.getElementById("label-" + correct);
+        
+        // Apply green border to correct selection only
+        if (selected === correct) {
+          selectedLabel.classList.add("correct");
+        } else {
+          // Apply red border to the selected (incorrect) answer
+          selectedLabel.classList.add("incorrect");
+        }
 
-        if (selectedLabel) selectedLabel.classList.add(selected === correct ? "correct" : "incorrect");
-        if (correctLabel && selected !== correct) correctLabel.classList.add("correct");
-
-        // Show the third image after selecting one of the first two images
+        // Show the third image after selecting one of the first two images (steps 1-5)
         if (step < 6) {
           document.getElementById("third-image").style.display = "block";
         }
