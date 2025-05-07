@@ -74,41 +74,41 @@ modules_data = [
 ]
 quiz_data = {
     "1": {
-        "image1": "https://example.com/quiz1_img1.jpg",
-        "image2": "https://example.com/quiz1_img2.jpg",
+        "image1": "pictures/mod_quiz/1.1.png",
+        "image2": "pictures/mod_quiz/1.2.png",
         "correct_answer": "image2",
         "tip": "Look closely at the lighting and reflections in both images. Pay special attention to eyes, glasses, and shiny surfaces.",
         "go_back_module": 1,
         "next_module": 2
     },
     "2": {
-        "image1": "https://example.com/quiz2_img1.jpg",
-        "image2": "https://example.com/quiz2_img2.jpg",
+        "image1": "pictures/mod_quiz/2.1.jpg",
+        "image2": "pictures/mod_quiz/2.2.png",
         "correct_answer": "image1",
         "tip": "Examine the text elements in both images. Look for inconsistent letter spacing, mixed character sets, or text that doesn't follow perspective correctly.",
         "go_back_module": 2,
         "next_module": 3
     },
     "3": {
-        "image1": "https://example.com/quiz3_img1.jpg",
-        "image2": "https://example.com/quiz3_img2.jpg",
+        "image1": "pictures/mod_quiz/3.1.png",
+        "image2": "pictures/mod_quiz/3.2.png",
         "correct_answer": "image1",
         "tip": "Focus on areas with similar lighting and check if the noise patterns are consistent. AI often creates unnaturally clean areas or inconsistent noise distribution.",
         "go_back_module": 3,
         "next_module": 4
     },
     "4": {
-        "image1": "https://example.com/quiz4_img1.jpg",
-        "image2": "https://example.com/quiz4_img2.jpg",
+        "image1": "pictures/mod_quiz/4.1.png",
+        "image2": "pictures/mod_quiz/4.2.png",
         "correct_answer": "image2",
         "tip": "Check if all objects follow the same perspective rules. Look for elements that appear at physically impossible angles or don't match the environment's vanishing points.",
         "go_back_module": 4,
         "next_module": 5
     },
     "5": {
-        "image1": "https://example.com/quiz5_img1.jpg",
-        "image2": "https://example.com/quiz5_img2.jpg",
-        "correct_answer": "image2",
+        "image1": "https://youtu.be/OtfUDTQfG4s",
+        "image2": "https://www.youtube.com/watch?v=PavYAOpVpJI",
+        "correct_answer": "video1",
         "tip": "Watch for elements that flicker or change subtly between frames. Pay attention to physics in movement and how complex elements like hair or water flow.",
         "go_back_module": 5,
         "next_module": "big_quiz"
@@ -257,6 +257,9 @@ def record_time():
     logger.info(learning_metaData)
 
     return jsonify({'status': 'success'})
+@app.route('/begin_quiz')
+def begin_quiz():
+    return render_template('begin_quiz.html')
 
 
 @app.route('/record_quiz_time', methods=['POST'])

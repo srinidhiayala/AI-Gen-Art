@@ -1,44 +1,91 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Which image was created by artificial intelligence?</h1>
-<p>Click on your guess:</p>
+<h1 class="learning-title">Module Quiz</h1>
+{% if quiz.next_module == "big_quiz" %}
+  <p class="small-quiz-question">Which video was created by artificial intelligence? </p>
+  <p class="small-quiz-click">Click on your guess: </p>
 
-<div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 30px;">
-  <form method="POST">
-    <button type="submit" name="answer" value="image1" style="border: none; background: none;">
-      <img src="{{ quiz.image1 }}" alt="Image 1"
-           style="width: 300px; cursor: pointer;
-                  border: 5px solid
-                  {% if user_answer %}
-                      {% if user_answer == 'image1' and correct_answer == 'image1' %}green
-                      {% elif user_answer == 'image1' and correct_answer != 'image1' %}red
-                      {% else %}transparent
-                      {% endif %}
-                  {% else %}transparent{% endif %}; border-radius: 10px;">
-    </button>
-    <button type="submit" name="answer" value="image2" style="border: none; background: none;">
-      <img src="{{ quiz.image2 }}" alt="Image 2"
-           style="width: 300px; cursor: pointer;
-                  border: 5px solid
-                  {% if user_answer %}
-                      {% if user_answer == 'image2' and correct_answer == 'image2' %}green
-                      {% elif user_answer == 'image2' and correct_answer != 'image2' %}red
-                      {% else %}transparent
-                      {% endif %}
-                  {% else %}transparent{% endif %}; border-radius: 10px;">
-    </button>
-  </form>
-</div>
+  <!-- Main Flex Container to Keep them Side by Side -->
+  <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 30px;">
+    <form method="POST" style="display: flex; gap: 40px; justify-content: center;">
+      
+      <!-- Video 1 -->
+      <div style="display: flex; flex-direction: column; align-items: center; width: 400px;">
+        <iframe width="400" height="250"
+                src="https://www.youtube.com/embed/OtfUDTQfG4s?autoplay=0"
+                frameborder="0" allow="autoplay" allowfullscreen
+                style="border: 5px solid
+                    {% if user_answer %}
+                        {% if user_answer == 'video1' and quiz.correct_answer == 'video1' %}green
+                        {% elif user_answer == 'video1' and quiz.correct_answer != 'video1' %}red
+                        {% else %}transparent
+                        {% endif %}
+                    {% else %}transparent{% endif %}; 
+                    border-radius: 10px;">
+        </iframe>
+        <button type="submit" name="answer" value="video1" class="btn btn-primary" 
+                style="margin-top: 10px; width: 100%; background-color: #824670; font-family: 'Roboto Condensed', sans-serif;">Select Video 1</button>
+      </div>
 
-<p><strong>Tip:</strong> {{ quiz.tip }}</p>
+      <!-- Video 2 -->
+      <div style="display: flex; flex-direction: column; align-items: center; width: 400px;">
+        <iframe width="400" height="250"
+                src="https://www.youtube.com/embed/PavYAOpVpJI?autoplay=0"
+                frameborder="0" allow="autoplay" allowfullscreen
+                style="border: 5px solid
+                    {% if user_answer %}
+                        {% if user_answer == 'video2' and quiz.correct_answer == 'video2' %}green
+                        {% elif user_answer == 'video2' and quiz.correct_answer != 'video2' %}red
+                        {% else %}transparent
+                        {% endif %}
+                    {% else %}transparent{% endif %}; 
+                    border-radius: 10px;">
+        </iframe>
+        <button type="submit" name="answer" value="video2" class="btn btn-primary" 
+                style="margin-top: 10px; width: 100%;background-color: #824670;font-family: 'Roboto Condensed', sans-serif;">Select Video 2</button>
+      </div>
 
-<div style="display: flex; justify-content: space-between; margin-top: 40px;">
-  <a href="{{ url_for('learning_modules', id=quiz.go_back_module) }}" class="btn btn-secondary">Go Back</a>
-  <a href="{% if quiz.next_module == 'big_quiz' %}{{ url_for('big_quiz', step=1) }}{% else %}{{ url_for('learning_modules', id=quiz.next_module) }}{% endif %}" class="btn btn-primary">
-    {% if quiz.next_module == 'big_quiz' %}Begin Big Quiz{% else %}Next Module{% endif %}
-  </a>
-</div>
+    </form>
+  </div>
+
+
+{% else %}
+  <p class="small-quiz-question">Which image was created by artificial intelligence? </p>
+  <p class="small-quiz-click">Click on your guess: </p>
+  <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 30px;">
+    <form method="POST">
+      <button type="submit" name="answer" value="image1" style="border: none; background: none;">
+        <img src="{{ url_for('static', filename=quiz.image1.strip()) }}" alt="Image 1"
+            style="width: 300px; cursor: pointer;
+                    border: 5px solid
+                    {% if user_answer %}
+                        {% if user_answer == 'image1' and correct_answer == 'image1' %}green
+                        {% elif user_answer == 'image1' and correct_answer != 'image1' %}red
+                        {% else %}transparent
+                        {% endif %}
+                    {% else %}transparent{% endif %}; border-radius: 10px;">
+      </button>
+      <button type="submit" name="answer" value="image2" style="border: none; background: none;">
+        <img src="{{ url_for('static', filename=quiz.image2.strip()) }}" alt="Image 2"
+            style="width: 300px; cursor: pointer;
+                    border: 5px solid
+                    {% if user_answer %}
+                        {% if user_answer == 'image2' and correct_answer == 'image2' %}green
+                        {% elif user_answer == 'image2' and correct_answer != 'image2' %}red
+                        {% else %}transparent
+                        {% endif %}
+                    {% else %}transparent{% endif %}; border-radius: 10px;">
+      </button>
+    </form>
+  </div>
+{% endif %}
+<p class= "small-quiz-tip-title"> Tip:</p>
+<p class= "small-quiz-tip"> {{ quiz.tip }}</p>
+<button id="back-mod-button" data-back-id="{{ quiz.go_back_module }}">Back</button>
+<button id="next-mod-button" data-next-id="{{ quiz.next_module }}">Next</button>
+<script src="{{ url_for('static', filename='routing.js') }}"></script>
+
 {% endblock %}
 
 
