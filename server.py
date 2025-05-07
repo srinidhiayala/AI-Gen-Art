@@ -66,7 +66,7 @@ modules_data = [
         "example1_link" : "https://youtu.be/QMoLt_5tr1g",
         "example2_pic": "",
         "example2_description" : "Objects appearing at physically impossible angles",
-        "example2_link" : "https://www.youtube.com/watch?v=PavYAOpVpJI",
+        "example2_link" : "https://youtu.be/h4Q_mqgRTzQ",
         "what_to_look_for" : ["Elements that flicker or change subtly between frames", "Objects that don't follow natural physics in movement", "Lighting or shadows that change inconsistently across frames", "Complex elements (hair, water) that don't move naturally"],
         "go_back": "q4",
         "next": "q5"  
