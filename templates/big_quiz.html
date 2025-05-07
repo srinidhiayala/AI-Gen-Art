@@ -146,6 +146,21 @@
   });
 </script>
 
+<script>
+  let startTime = Date.now();
+
+  $(window).on('beforeunload', function () {
+    let endTime = Date.now();
+    let timeSpentSeconds = Math.floor((endTime - startTime) / 1000); 
+
+    navigator.sendBeacon('/record_time', JSON.stringify({
+        quiz_id: "{{ step }}",  
+        time_spent: timeSpentSeconds
+    }));
+  });
+</script>
+
+
 {% endblock %}
 
 

@@ -315,9 +315,17 @@ body {
 }
 
 .custom-button-container {
-  margin-left: 90px; /* Shifts the buttons slightly to the right */
+  margin-left: 120px; /* Shifts the buttons slightly to the right */
 }
 
 .btn:hover {
   opacity: 0.9;
+}
+
+#quiz-results-title {
+  padding-left: 40px; /* Adjusting the quiz title*/
+}
+
+.lead.small {
+  padding-left: 40px; /* Adjusting the quiz title*/
 }

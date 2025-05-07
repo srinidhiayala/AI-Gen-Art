@@ -1,10 +1,8 @@
 from os import abort
 from flask import Flask
 from flask import render_template
-from flask import Response, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import logging
-
-from flask import Flask, render_template, request, redirect, url_for, session
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -257,6 +255,24 @@ def record_time():
     learning_metaData.append({"module_id":module_id, "seconds_spent":time_spent})
     
     logger.info(learning_metaData)
+
+    return jsonify({'status': 'success'})
+
+
+@app.route('/record_quiz_time', methods=['POST'])
+def record_quiz_time():
+    global quiz_metaData
+    if request.data:
+        import json
+        data = json.loads(request.data) 
+    else:
+        data = {}
+
+    quiz_id = data.get('quiz_id')
+    time_spent = data.get('time_spent')
+    
+    quiz_metaData.append({"quiz_id": quiz_id, "seconds_spent": time_spent})  
+    logger.info(quiz_metaData)
 
     return jsonify({'status': 'success'})
 
