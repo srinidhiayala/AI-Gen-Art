@@ -119,9 +119,6 @@
       width: '400',
       videoId: '{{ module.example2_link.split("=")[-1] if "watch?v=" in module.example2_link else module.example2_link.split("/")[-1] }}',
       events: {
-        'onReady': (event) => {
-          event.target.playVideo();
-        },
         'onStateChange': (event) => {
           if (event.data === YT.PlayerState.PLAYING && !stopTimeout2) {
             stopTimeout2 = setTimeout(() => player2.stopVideo(), 10000);
