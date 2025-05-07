@@ -291,3 +291,35 @@ body {
   font-size: 18px;
   font-weight: lighter;
 }
+
+.btn {
+  font-family: 'Roboto Condensed', sans-serif;
+  padding: 10px 30px;
+  border: none;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-retake, .btn-learn {
+  background-color: #a2708a;
+}
+
+.btn-home {
+  background-color: #824670;
+}
+
+/* Flexbox container to center all buttons with a slight shift to the right */
+.d-flex {
+  display: flex;
+  justify-content: center; /* Ensures buttons are centered horizontally */
+}
+
+.custom-button-container {
+  margin-left: 90px; /* Shifts the buttons slightly to the right */
+}
+
+/* On hover (optional, if you'd like the color change on hover) */
+.btn:hover {
+  opacity: 0.9;
+}

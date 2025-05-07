@@ -4,13 +4,17 @@
 <div class="container text-center mt-5">
     <h1 id="quiz-results-title" class="mb-4">Quiz Results</h1>
     <p class="lead small">You scored {{ score }} out of 7!</p>
-    <div class="mt-4">
-        <a href="{{ url_for('big_quiz', step=1) }}" class="btn btn-primary m-2">Retake Quiz</a>
-        <a href="{{ url_for('homepage') }}" class="btn btn-secondary m-2">Return Home</a>
-        <a href="{{ url_for('learning_modules', id=user_id) }}" class="btn btn-success m-2">Return to Learning Modules</a>
+    <div class="mt-4 d-flex justify-content-center custom-button-container">
+        <a href="{{ url_for('big_quiz', step=1) }}" class="btn btn-retake m-2">Retake Quiz</a>
+        <a href="{{ url_for('homepage') }}" class="btn btn-home m-2">Return Home</a>
+        <a href="{{ url_for('learning_modules', id=user_id) }}" class="btn btn-learn m-2">Return to Learning Modules</a>
     </div>
 </div>
 {% endblock %}
+
+
+
+
 
 
 

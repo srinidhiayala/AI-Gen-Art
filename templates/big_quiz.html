@@ -48,6 +48,15 @@
           </label>
         {% endif %}
       </div>
+
+      <!-- Third Image below the two images (for steps 1-5) -->
+      <div id="third-image" class="text-center mt-4" style="display: none;">
+        {% if big_quiz_data[step]['image3'] %}
+          <img src="{{ big_quiz_data[step]['image3'] }}"
+               alt="Third image for step {{ step }}"
+               style="width: 100%; height: auto; object-fit: contain;">
+        {% endif %}
+      </div>
     {% endif %}
   </div>
 
@@ -138,3 +147,5 @@
 </script>
 
 {% endblock %}
+
+
