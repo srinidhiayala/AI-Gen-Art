@@ -63,7 +63,7 @@ modules_data = [
         "title": "Consistency Over Time in Video",
         "example1_pic": "",
         "example1_description" : "Objects not following the same perspective rules",
-        "example1_link" : "https://youtu.be/xgSTUmEQ4Hs",
+        "example1_link" : "https://youtu.be/QMoLt_5tr1g",
         "example2_pic": "",
         "example2_description" : "Objects appearing at physically impossible angles",
         "example2_link" : "https://www.youtube.com/watch?v=PavYAOpVpJI",
@@ -106,7 +106,7 @@ quiz_data = {
         "next_module": 5
     },
     "5": {
-        "image1": "https://youtu.be/OtfUDTQfG4s",
+        "image1": "https://www.youtube.com/embed/nyoDX9vPf_E",
         "image2": "https://www.youtube.com/watch?v=PavYAOpVpJI",
         "correct_answer": "video1",
         "tip": "Watch for elements that flicker or change subtly between frames. Pay attention to physics in movement and how complex elements like hair or water flow.",
