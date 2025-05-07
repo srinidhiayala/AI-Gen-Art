@@ -17,11 +17,16 @@
 
 <form method="POST" id="quiz-form">
   <div class="d-flex justify-content-center mt-5">
-    {% if step in [6, 7] %}
-      <!-- For steps 6 and 7, only one image -->
-      <img src="{{ big_quiz_data[step]['image1'] }}"
-           alt="Question {{ step }} image"
-           style="border: 2px solid #444; width: 50%; height: 300px; object-fit: cover;">
+    {% if step == 6 %}
+      <!-- For step 6, only show 6.png -->
+      <img src="{{ url_for('static', filename='pictures/big_quiz_questions/6.png') }}" 
+           alt="Image for step 6"
+           style="border: 2px solid #444; width: 50%; height: 400px; object-fit: cover;">
+    {% elif step == 7 %}
+      <!-- For step 7, only show 7.png -->
+      <img src="{{ url_for('static', filename='pictures/big_quiz_questions/7.png') }}" 
+           alt="Image for step 7"
+           style="border: 2px solid #444; width: 50%; height: 400px; object-fit: cover;">
     {% else %}
       <!-- For steps 1 to 5, show two images -->
       <div class="d-flex justify-content-center">
@@ -43,16 +48,6 @@
           </label>
         {% endif %}
       </div>
-
-     <!-- Third Image below the two images (vertically stacked) -->
-      <div id="third-image" class="text-center mt-4" style="display: none;">
-        {% if big_quiz_data[step]['image3'] %}
-          <img src="{{ big_quiz_data[step]['image3'] }}"
-               alt="Third image for step {{ step }}"
-               style="width: 100%; height: auto; object-fit: contain;">
-        {% endif %}
-      </div>
-
     {% endif %}
   </div>
 
@@ -143,6 +138,3 @@
 </script>
 
 {% endblock %}
-
-
-
