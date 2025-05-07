@@ -6,12 +6,27 @@
     <h4 class="module-progress">{{ module.id }} / 5</h4>
   </div>
 
-  {% if module.example1_pic or module.example2_pic %}
+{% if module.id == "5" %}
+<div style="display: flex; justify-content: center; gap: 60px; margin-top: 40px;">
+  <div style="text-align: center;">
+    <h4 class="example">Example 1</h4>
+    <div id="player1"></div>
+    <p class="example-caption">{{ module.example1_description }}</p>
+  </div>
+
+  <div style="text-align: center;">
+    <h4 class="example">Example 2</h4>
+    <div id="player2"></div>
+    <p class="example-caption">{{ module.example2_description }}</p>
+  </div>
+</div>
+
+  {% elif module.example1_pic or module.example2_pic %}
   <div style="display: flex; justify-content: center; gap: 200px; margin-top: 40px;">
     <div style="text-align: center;">
       <h4 class="example">Example 1</h4>
       {% if module.example1_pic %}
-        <img src="{{ url_for('static', filename=module.example1_pic|replace('static/', '') ) }}" alt="Example 1 picture"">
+        <img src="{{ url_for('static', filename=module.example1_pic|replace('static/', '') ) }}" alt="Example 1 picture">
       {% endif %}
       {% if module.example1_link %}
         <p class="example-caption"><a href="{{ module.example1_link }}" target="_blank">{{ module.example1_description }}</a></p>
@@ -74,7 +89,50 @@
     });
   });
   </script>
-  
+
+{% if module.id == "5" %}
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let player1, player2;
+  let stopTimeout1, stopTimeout2;
+
+  function onYouTubeIframeAPIReady() {
+    player1 = new YT.Player('player1', {
+      height: '225',
+      width: '400',
+      videoId: '{{ module.example1_link.split("=")[-1] if "watch?v=" in module.example1_link else module.example1_link.split("/")[-1] }}',
+      events: {
+        'onReady': (event) => {
+          event.target.mute();
+          event.target.playVideo();
+        },
+        'onStateChange': (event) => {
+          if (event.data === YT.PlayerState.PLAYING && !stopTimeout1) {
+            stopTimeout1 = setTimeout(() => player1.stopVideo(), 10000);
+          }
+        }
+      }
+    });
+
+    player2 = new YT.Player('player2', {
+      height: '225',
+      width: '400',
+      videoId: '{{ module.example2_link.split("=")[-1] if "watch?v=" in module.example2_link else module.example2_link.split("/")[-1] }}',
+      events: {
+        'onReady': (event) => {
+          event.target.playVideo();
+        },
+        'onStateChange': (event) => {
+          if (event.data === YT.PlayerState.PLAYING && !stopTimeout2) {
+            stopTimeout2 = setTimeout(() => player2.stopVideo(), 10000);
+          }
+        }
+      }
+    });
+  }
+</script>
+{% endif %}
+
 
 </div>
 {% endblock %}

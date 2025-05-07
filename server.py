@@ -65,7 +65,7 @@ modules_data = [
         "title": "Consistency Over Time in Video",
         "example1_pic": "",
         "example1_description" : "Objects not following the same perspective rules",
-        "example1_link" : "https://artlist.io/stock-footage/clip/drone-pyrenees-ridge-lake/6415520",
+        "example1_link" : "https://youtu.be/xgSTUmEQ4Hs",
         "example2_pic": "",
         "example2_description" : "Objects appearing at physically impossible angles",
         "example2_link" : "https://www.youtube.com/watch?v=PavYAOpVpJI",
@@ -166,7 +166,7 @@ correct_answers = {
       5: "image1",
       6: "yes",
       7: "yes"
-    };
+    }
 
 # ROUTES
 
@@ -210,13 +210,11 @@ def big_quiz(step):
 
     quiz = big_quiz_data[step]
 
-    # Reset session at the start
     if step == 1 and request.method == 'GET':
         session.pop('quiz_submitted', None)
         for i in range(1, 8):
             session.pop(f'answer_{i}', None)
 
-    # Handle form submission
     if request.method == 'POST':
         answer = request.form.get('answer')
         session[f'answer_{step}'] = answer
@@ -224,7 +222,6 @@ def big_quiz(step):
         if step < 7:
             return redirect(url_for('big_quiz', step=step + 1))
         else:
-            # Final question submitted, redirect to results page
             session['quiz_submitted'] = True
             return redirect(url_for('big_quiz_results'))
 
@@ -240,8 +237,7 @@ def big_quiz_results():
         if session.get(f'answer_{s}') == correct
     )
 
-    # Example: get user_id from session or set default if not logged in
-    user_id = session.get('user_id', 1)  # Replace 1 with your default or error handling
+    user_id = session.get('user_id', 1) 
 
     return render_template('big_quiz_results.html', score=score, user_id=user_id)
 
