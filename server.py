@@ -106,7 +106,7 @@ quiz_data = {
         "next_module": 5
     },
     "5": {
-        "image1": "https://www.youtube.com/embed/nyoDX9vPf_E",
+        "image1": "",
         "image2": "https://www.youtube.com/watch?v=PavYAOpVpJI",
         "correct_answer": "video1",
         "tip": "Watch for elements that flicker or change subtly between frames. Pay attention to physics in movement and how complex elements like hair or water flow.",
