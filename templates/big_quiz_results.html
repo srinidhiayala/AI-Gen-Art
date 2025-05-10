@@ -1,24 +1,15 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container text-center mt-5">
+<div class="container text-center mt-5"><br>
     <h1 id="quiz-results-title" class="mb-4">Quiz Results</h1>
+    <br><br> <br><br> <br>
     <p class="lead small">You scored {{ score }} out of 7!</p>
-    <div class="mt-4 d-flex justify-content-center custom-button-container">
-        <a href="{{ url_for('big_quiz', step=1) }}" class="btn btn-retake m-2">Retake Quiz</a>
-        <a href="{{ url_for('homepage') }}" class="btn btn-home m-2">Return Home</a>
-        <a href="{{ url_for('learning_modules', id=user_id) }}" class="btn btn-learn m-2">Return to Learning Modules</a>
-    </div>
+    <br> <br> <br> <br> <br>
+    <button id="training-button" class="training-button js-return-home">Return Home</button>
+    <button id="about-button" class="about-button js-retake-quiz">Retake Quiz</button>
+    <button id="beginQuiz-button" class="beginQuiz-button js-redo-learning">Redo Learning</button>
 </div>
+<script src="static/routing.js"></script>
+
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-

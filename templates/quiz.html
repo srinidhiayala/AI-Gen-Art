@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1 class="learning-title">Module Quiz</h1>
+<h1 class="learning-title">Module {{ quiz.go_back_module }} : Quiz</h1>
 {% if quiz.next_module == "big_quiz" %}
+<br>
   <p class="small-quiz-question">Which video was created by artificial intelligence? </p>
   <p class="small-quiz-click">Click on your guess: </p>
 
@@ -51,8 +52,10 @@
 
 
 {% else %}
+<br>
   <p class="small-quiz-question">Which image was created by artificial intelligence? </p>
   <p class="small-quiz-click">Click on your guess: </p>
+  <br>
   <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 30px;">
     <form method="POST">
       <button type="submit" name="answer" value="image1" style="border: none; background: none;">
@@ -80,8 +83,8 @@
     </form>
   </div>
 {% endif %}
-<p class= "small-quiz-tip-title"> Tip:</p>
-<p class= "small-quiz-tip"> {{ quiz.tip }}</p>
+<br>
+<p class= "small-quiz-tip-title"> Tip: <span class= "small-quiz-tip">{{ quiz.tip }} </span></p>
 <button id="back-mod-button" data-back-id="{{ quiz.go_back_module }}">Back</button>
 <button id="next-mod-button" data-next-id="{{ quiz.next_module }}">Next</button>
 <script src="{{ url_for('static', filename='routing.js') }}"></script>

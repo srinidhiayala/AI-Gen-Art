@@ -2,8 +2,9 @@
 
 {% block content %}
 
-<!-- Progress Indicator -->
-<div class="quiz-progress" style="position: absolute; top: 20px; right: 30px; background:rgb(207, 186, 211); padding: 6px 12px; border-radius: 6px;">
+
+<br><br>
+<div class="quiz-progress text-end mb-3" style="background:rgb(147, 146, 146); padding: 6px 12px; border-radius: 6px; display: inline-block; float: right;">
   {{ step }} / 7
 </div>
 
@@ -11,9 +12,10 @@
   {% if step in [6, 7] %}
     Question {{ step }}: Is this picture AI generated?
   {% else %}
-    Question {{ step }}: Please choose the AI image.
+    Question {{ step }}: Please choose the AI image
   {% endif %}
 </h2>
+<br><br>
 
 <form method="POST" id="quiz-form">
   <div class="d-flex justify-content-center mt-5">
