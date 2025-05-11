@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
 <br><br>
 <div class="quiz-progress text-end mb-3" style="background:rgb(147, 146, 146); padding: 6px 12px; border-radius: 6px; display: inline-block; float: right;">
   {{ step }} / 7
@@ -20,17 +19,14 @@
 <form method="POST" id="quiz-form">
   <div class="d-flex justify-content-center mt-5">
     {% if step == 6 %}
-      <!-- For step 6, only show 6.png -->
       <img src="{{ url_for('static', filename='pictures/big_quiz_questions/6.png') }}" 
            alt="Image for step 6"
            style="border: 2px solid #444; width: 50%; height: 400px; object-fit: cover;">
     {% elif step == 7 %}
-      <!-- For step 7, only show 7.png -->
       <img src="{{ url_for('static', filename='pictures/big_quiz_questions/7.png') }}" 
            alt="Image for step 7"
            style="border: 2px solid #444; width: 50%; height: 400px; object-fit: cover;">
     {% else %}
-      <!-- For steps 1 to 5, show two images -->
       <div class="d-flex justify-content-center">
         {% if big_quiz_data[step]['image1'] %}
           <label id="label-image1"
@@ -51,7 +47,6 @@
         {% endif %}
       </div>
 
-      <!-- Third Image below the two images (for steps 1-5) -->
       <div id="third-image" class="text-center mt-4" style="display: none;">
         {% if big_quiz_data[step]['image3'] %}
           <img src="{{ big_quiz_data[step]['image3'] }}"
@@ -63,7 +58,6 @@
   </div>
 
   {% if step in [6, 7] %}
-    <!-- Yes/No options for steps 6 and 7 -->
     <div class="text-center mt-4">
       <label class="mr-3">
         <input type="radio" name="answer" value="yes" required> Yes
@@ -109,7 +103,6 @@
       7: "yes"
     };
 
-    // Clear borders before applying new ones
     function clearBorders() {
       const label1 = document.getElementById("label-image1");
       const label2 = document.getElementById("label-image2");
@@ -117,7 +110,6 @@
       if (label2) label2.classList.remove("correct", "incorrect");
     }
 
-    // Get the step and correct answer dynamically
     const step = {{ step }};
     const correct = correct_answers[step];
 
@@ -125,21 +117,16 @@
       input.addEventListener('change', function () {
         const selected = this.value;
 
-        // Clear previous borders
         clearBorders();
 
-        // Get selected label element
         const selectedLabel = document.getElementById("label-" + selected);
         
-        // Apply green border to correct selection only
         if (selected === correct) {
           selectedLabel.classList.add("correct");
         } else {
-          // Apply red border to the selected (incorrect) answer
           selectedLabel.classList.add("incorrect");
         }
 
-        // Show the third image after selecting one of the first two images (steps 1-5)
         if (step < 6) {
           document.getElementById("third-image").style.display = "block";
         }
@@ -155,13 +142,12 @@
     let endTime = Date.now();
     let timeSpentSeconds = Math.floor((endTime - startTime) / 1000); 
 
-    navigator.sendBeacon('/record_time', JSON.stringify({
-        quiz_id: "{{ step }}",  
+    navigator.sendBeacon('/record_big_quiz_time', JSON.stringify({
+        quiz_id: "{{ step }}", 
         time_spent: timeSpentSeconds
     }));
   });
 </script>
-
 
 {% endblock %}
 

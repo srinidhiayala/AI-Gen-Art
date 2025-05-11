@@ -239,46 +239,27 @@ def big_quiz_results():
 
     return render_template('big_quiz_results.html', score=score, user_id=user_id)
 
+big_quiz_metaData = []  
 
-@app.route('/record_time', methods=['POST'])
-def record_time():
-    global learning_metaData
+@app.route('/record_big_quiz_time', methods=['POST'])
+def record_big_quiz_time():
+    global big_quiz_metaData
     if request.data:
         import json
-        data = json.loads(request.data) 
-    else:
-        data = {}
-
-    module_id = data.get('module_id')
-    time_spent = data.get('time_spent')
-    
-    learning_metaData.append({"module_id":module_id, "seconds_spent":time_spent})
-    
-    logger.info(learning_metaData)
-
-    return jsonify({'status': 'success'})
-@app.route('/begin_quiz')
-def begin_quiz():
-    return render_template('begin_quiz.html')
-
-
-@app.route('/record_quiz_time', methods=['POST'])
-def record_quiz_time():
-    global quiz_metaData
-    if request.data:
-        import json
-        data = json.loads(request.data) 
+        data = json.loads(request.data)
     else:
         data = {}
 
     quiz_id = data.get('quiz_id')
     time_spent = data.get('time_spent')
-    
-    quiz_metaData.append({"quiz_id": quiz_id, "seconds_spent": time_spent})  
-    logger.info(quiz_metaData)
+    big_quiz_metaData.append({"quiz_id": quiz_id, "seconds_spent": time_spent})
+    logger.info(big_quiz_metaData)
 
     return jsonify({'status': 'success'})
 
+@app.route('/begin_quiz')
+def begin_quiz():
+    return render_template('begin_quiz.html')
 
 # AJAX FUNCTIONS
 
