@@ -70,13 +70,13 @@
 
   <div class="d-flex justify-content-between mt-4">
     {% if step > 1 %}
-      <a class="btn btn-secondary" href="{{ url_for('big_quiz', step=step - 1) }}">Back</a>
+      <a class="btn btn-secondary btn-back" href="{{ url_for('big_quiz', step=step - 1) }}">Back</a>
     {% else %}
       <span></span>
     {% endif %}
 
     {% if step < 7 %}
-      <button type="submit" class="btn btn-primary">Next</button>
+      <button type="submit" class="btn btn-primary btn-next">Next</button>
     {% elif step == 7 %}
       <button type="submit" class="btn btn-success">Submit</button>
     {% endif %}

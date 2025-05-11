@@ -419,3 +419,13 @@ body {
   border: none;
   cursor: pointer;
 }
+
+.btn-next, .btn-next:hover, .btn-next:focus, .btn-next:active {
+  background-color: #824670;  
+  border-color: #824670;
+}
+
+.btn-back, .btn-back:hover, .btn-back:focus, .btn-back:active {
+  background-color: #a2708a;  
+  border-color: #a2708a;
+}
