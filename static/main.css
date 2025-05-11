@@ -429,3 +429,30 @@ body {
   background-color: #a2708a;  
   border-color: #a2708a;
 }
+
+.text-center.mt-4 label {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.text-center.mt-4 input[type="radio"] {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.quiz-question-title {
+  margin-left: 50px;  
+}
+
+.btn-success {
+    background-color: #8dde8d; 
+    border-color: #8dde8d;  
+}
+
+.btn-success:hover {
+    background-color: #aff5af;  
+    border-color: #aff5af;  
+}
+
+.btn-success:active {
+    background-color: #aff5af;  
+    border-color: #aff5af;
+}
