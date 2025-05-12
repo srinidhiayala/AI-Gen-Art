@@ -14,7 +14,7 @@
     Question {{ step }}: Please choose the AI image
   {% endif %}
 </h2>
-<br><br>
+<br>
 
 <form method="POST" id="quiz-form">
   <div class="d-flex justify-content-center mt-5">
@@ -58,16 +58,18 @@
   </div>
 
   {% if step in [6, 7] %}
-    <div class="text-center mt-4">
-      <label class="mr-3">
-        <input type="radio" name="answer" value="yes" required> Yes
-      </label>
-      <label>
-        <input type="radio" name="answer" value="no" required> No
-      </label>
-    </div>
+  <div class="text-center mt-4">
+    <label class="small-roboto mr-4 inline-flex items-center">
+      <input type="radio" name="answer" value="yes" required class="mr-2"> Yes
+    </label>
+    <label class="small-roboto inline-flex items-center">
+      <input type="radio" name="answer" value="no" required class="mr-2"> No
+    </label>
+  </div>
+  
   {% endif %}
 
+  <br> 
   <div class="d-flex justify-content-between mt-4">
     {% if step > 1 %}
       <a class="btn btn-secondary btn-back" href="{{ url_for('big_quiz', step=step - 1) }}">Back</a>

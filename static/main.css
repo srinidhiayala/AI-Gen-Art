@@ -373,11 +373,11 @@ body {
 
 .d-flex {
   display: flex;
-  justify-content: center; /* Ensures buttons are centered horizontally */
+  justify-content: center; 
 }
 
 .custom-button-container {
-  margin-left: 120px; /* Shifts the buttons slightly to the right */
+  margin-left: 120px; 
 }
 
 .btn:hover {
@@ -385,12 +385,12 @@ body {
 }
 
 #quiz-results-title {
-  padding-left: 50px; /* Adjusting the quiz title*/
+  padding-left: 50px; 
   font-size: 60px;
 }
 
 .lead.small {
-  padding-left: 40px; /* Adjusting the quiz title*/
+  padding-left: 40px; 
   font-size: 40px;
 }
 
